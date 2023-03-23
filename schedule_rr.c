@@ -26,7 +26,7 @@ void schedule() {
   while (prev->next != list) {
     prev = prev->next;
   }
-  printf("Name\t\tRemaining\tID\t\tTime spent\n");
+  printf("Name\t\tRemaining\tID\t\tTime to spend\n");
   while (temp->next && temp != temp->next) {
     printf("%s\t\t%d\t\t%d\t\t%d\n", temp->task->name, temp->task->burst, temp->task->tid, (temp->task->burst < QUANTUM) ? temp->task->burst : QUANTUM);
     if ((temp->task->burst - QUANTUM) < 1) {

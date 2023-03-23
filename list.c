@@ -55,6 +55,50 @@ void insert_end_q(struct node** head, Task* newTask) {
 struct node* getNode(struct node) {
     return NULL;
 }
+
+// Insert based on task length
+void insert_sjf(struct node** head, Task* newTask) {
+    struct node* newNode = malloc(sizeof(struct node));
+    struct node* curr;
+    struct node* prev;
+    newNode->task = newTask;
+    newNode->next = NULL;
+    // empty case
+    if (!*head) {
+        *head = newNode;
+        return;
+    }
+    int burst = newNode->task->burst;
+    // Insert at head
+    // newTask-> next becomes head, head becomes newtask
+    if (burst <= (*head)->task->burst) {
+        newNode->next = *head;
+        *head = newNode;
+    }
+    else {
+        prev = *head;
+        curr = prev->next;
+        while (prev) {
+            // handle placing at end of list
+            if (!curr) {
+                prev->next = newNode;
+                break;
+            }
+            if (burst <= curr->task->burst) {
+                prev->next = newNode;
+                newNode->next = curr;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+
+    // Insert anywhere else
+    // 
+
+}
+
 // delete the selected task from the list
 void delete(struct node** head, Task* task) {
     struct node* temp;
