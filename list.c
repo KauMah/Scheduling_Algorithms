@@ -94,10 +94,48 @@ void insert_sjf(struct node** head, Task* newTask) {
         }
     }
 
-    // Insert anywhere else
-    // 
+}
+
+// Insert based on task length
+void insert_priority(struct node** head, Task* newTask) {
+    struct node* newNode = malloc(sizeof(struct node));
+    struct node* curr;
+    struct node* prev;
+    newNode->task = newTask;
+    newNode->next = NULL;
+    // empty case
+    if (!*head) {
+        *head = newNode;
+        return;
+    }
+    int priority = newNode->task->priority;
+    // Insert at head
+    // newTask-> next becomes head, head becomes newtask
+    if (priority <= (*head)->task->priority) {
+        newNode->next = *head;
+        *head = newNode;
+    }
+    else {
+        prev = *head;
+        curr = prev->next;
+        while (prev) {
+            // handle placing at end of list
+            if (!curr) {
+                prev->next = newNode;
+                break;
+            }
+            if (priority <= curr->task->priority) {
+                prev->next = newNode;
+                newNode->next = curr;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+        }
+    }
 
 }
+
 
 // delete the selected task from the list
 void delete(struct node** head, Task* task) {

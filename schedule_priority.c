@@ -14,7 +14,7 @@ void add(char* name, int priority, int burst) {
   toAdd->priority = priority;
   toAdd->burst = burst;
   toAdd->tid = tid++;
-  insert_sjf(&list, toAdd);
+  insert_priority(&list, toAdd);
 
 }
 
