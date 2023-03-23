@@ -36,6 +36,25 @@ void insert_end(struct node** head, Task* newTask) {
     }
 }
 
+void insert_end_q(struct node** head, Task* newTask) {
+    struct node* newNode = malloc(sizeof(struct node));
+    newNode->task = newTask;
+    newNode->next = *head;
+    if (!*head) {
+        *head = newNode;
+    }
+    else {
+        struct node* trav = *head;
+        while (trav->next && trav->next != *head) {
+            trav = trav->next;
+        }
+        trav->next = newNode;
+    }
+}
+
+struct node* getNode(struct node) {
+    return NULL;
+}
 // delete the selected task from the list
 void delete(struct node** head, Task* task) {
     struct node* temp;
