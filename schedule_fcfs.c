@@ -1,6 +1,7 @@
 #include "schedulers.h"
 #include "list.h"
 #include "task.h"
+#include "cpu.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,7 +21,19 @@ void add(char* name, int priority, int burst) {
 
 void schedule() {
   printf("[NAME]\t[PRIORITY]\t[BURST]\n");
-  traverse(list);
+  double currTime = 0; // time elapsed before handling current process
+  double turnaround = 0; // burst + completion time
+  double wait = 0; // turnaround time - burst time
+  double response = 0; // start time
+  struct node* curr = list;
+  while (list) {
+    wait += currTime;
+    response += currTime;
+    run(list->task, list->task->burst);
+    currTime += list->task->burst;
+    turnaround += currTime;
+    list = list->next;
+  }
   struct node* temp;
   // I'm a responsible C programmer so I clean up after myself
   while (list) {
@@ -29,5 +42,9 @@ void schedule() {
     free(temp->task);
     free(temp);
   }
+  turnaround /= tid;
+  wait /= tid;
+  response /= tid;
+  printf("Avg wait: %.3f\nAvg response: %.3f\nAvg turnaround: %.3f\n", wait, response, turnaround);
   return;
 }

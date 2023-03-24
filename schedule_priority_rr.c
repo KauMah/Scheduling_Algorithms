@@ -1,6 +1,7 @@
 #include "schedulers.h"
 #include "list.h"
 #include "task.h"
+#include "cpu.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,5 +20,4 @@ void add(char* name, int priority, int burst) {
 }
 
 void schedule() {
-  traverse(list);
 }
