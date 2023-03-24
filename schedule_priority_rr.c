@@ -50,7 +50,7 @@ void schedule() {
 
 
   // time to RR :)
-  for (int i = 0; i < MAX_PRIORITY; i++) {
+  for (int i = MAX_PRIORITY - 1; i >= 0; i--) {
     if (subtid[i] == 0) {
       continue;
     }
