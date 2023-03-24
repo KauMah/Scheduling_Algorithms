@@ -70,13 +70,11 @@ void schedule() {
         wait += subtid[i] * curr->task->burst;
         currTime += curr->task->burst;
         turnaround += currTime;
-        struct node* t = curr;
-        prev->next = curr->next ? curr->next : prev;
+        // struct node* t = curr;
+        prev->next = curr->next;
         curr = curr->next;
-        printf("curr %s\n", curr->task->name); // yuhhh
-        printf("prev %s\n", prev->task->name); // yuhhh
-        free(t->task);
-        free(t);
+        // free(t->task);
+        // free(t);
       }
       else {
         wait += (subtid[i] - 1) * QUANTUM;
@@ -90,7 +88,6 @@ void schedule() {
       }
     }
     run(prev->task, prev->task->burst);
-    printf("blah %s\n", prev->task->name); // yuhhh
     currTime += prev->task->burst;
     turnaround += currTime;
   }
