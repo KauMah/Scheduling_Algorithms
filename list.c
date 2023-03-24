@@ -42,6 +42,7 @@ void insert_end_q(struct node** head, Task* newTask) {
     newNode->next = *head;
     if (!*head) {
         *head = newNode;
+        newNode->next = *head;
     }
     else {
         struct node* trav = *head;
