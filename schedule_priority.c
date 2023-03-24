@@ -20,5 +20,30 @@ void add(char* name, int priority, int burst) {
 }
 
 void schedule() {
-  traverse(list);
+  double currTime = 0; // time elapsed before handling current process
+  double turnaround = 0; // burst + completion time
+  double wait = 0; // turnaround time - burst time
+  double response = 0; // start time
+  struct node* curr = list;
+  while (curr) {
+    wait += currTime;
+    response += currTime;
+    run(curr->task, curr->task->burst);
+    currTime += curr->task->burst;
+    turnaround += currTime;
+    curr = curr->next;
+  }
+  struct node* temp;
+  // I'm a responsible C programmer so I clean up after myself
+  while (list) {
+    temp = list;
+    list = list->next;
+    free(temp->task);
+    free(temp);
+  }
+  turnaround /= tid;
+  wait /= tid;
+  response /= tid;
+  printf("Avg wait: %.3f\nAvg response: %.3f\nAvg turnaround: %.3f\n", wait, response, turnaround);
+  return;
 }

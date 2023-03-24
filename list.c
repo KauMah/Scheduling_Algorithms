@@ -52,10 +52,6 @@ void insert_end_q(struct node** head, Task* newTask) {
     }
 }
 
-struct node* getNode(struct node) {
-    return NULL;
-}
-
 // Insert based on task length
 void insert_sjf(struct node** head, Task* newTask) {
     struct node* newNode = malloc(sizeof(struct node));
@@ -111,7 +107,7 @@ void insert_priority(struct node** head, Task* newTask) {
     int priority = newNode->task->priority;
     // Insert at head
     // newTask-> next becomes head, head becomes newtask
-    if (priority <= (*head)->task->priority) {
+    if (priority > (*head)->task->priority) {
         newNode->next = *head;
         *head = newNode;
     }
@@ -124,7 +120,14 @@ void insert_priority(struct node** head, Task* newTask) {
                 prev->next = newNode;
                 break;
             }
-            if (priority <= curr->task->priority) {
+            if (priority == curr->task->priority) {
+                if (newNode->task->burst > curr->task->burst) {
+                    prev = curr;
+                    curr = curr->next;
+                    continue;
+                }
+            }
+            if (priority > curr->task->priority) {
                 prev->next = newNode;
                 newNode->next = curr;
                 break;
