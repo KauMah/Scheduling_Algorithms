@@ -15,9 +15,10 @@ void add(char* name, int priority, int burst) {
   toAdd->priority = priority;
   toAdd->burst = burst;
   toAdd->tid = tid++;
-  insert_priority(&list, toAdd);
+  insert(&list, toAdd);
 
 }
 
 void schedule() {
+  traverse(list);
 }
