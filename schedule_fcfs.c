@@ -20,19 +20,18 @@ void add(char* name, int priority, int burst) {
 }
 
 void schedule() {
-  printf("[NAME]\t[PRIORITY]\t[BURST]\n");
   double currTime = 0; // time elapsed before handling current process
   double turnaround = 0; // burst + completion time
   double wait = 0; // turnaround time - burst time
   double response = 0; // start time
   struct node* curr = list;
-  while (list) {
+  while (curr) {
     wait += currTime;
     response += currTime;
-    run(list->task, list->task->burst);
-    currTime += list->task->burst;
+    run(curr->task, curr->task->burst);
+    currTime += curr->task->burst;
     turnaround += currTime;
-    list = list->next;
+    curr = curr->next;
   }
   struct node* temp;
   // I'm a responsible C programmer so I clean up after myself
