@@ -1,3 +1,11 @@
+# Scheduling Algorithms 
+
+This contains my C implementation of 5 scheduling algorithms as detailed by the book _Operating Systems Concepts, 10th ed_ by Avi Silberschatz, Peter Baer Galvin, and Greg Gagne
+
+## Chapter 5 - Programming problem at the end + Further challenge #2
+
+If you found this helpful, drop a star on my repo!
+
 Completing this project will require writing the following C files:
 
 schedule_fcfs.c
